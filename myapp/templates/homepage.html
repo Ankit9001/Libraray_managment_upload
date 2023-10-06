@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <title>Home</title>
+    <style>
+        .header {
+            display: flex;
+        }
+
+        .addbtndiv {
+            margin-top: 2%;
+        }
+
+        .serachbox {
+            margin-top: 2%;
+            margin-left: 2%;
+            width: 100%;
+        }
+
+        .query {
+            width: 100%;
+        }
+        .serchinput{
+            width: 30%;
+            font-size: 12px;
+        }
+    </style>
+
+</head>
+
+<body>
+    {% include "navbar.html" %}
+    <div class="header">
+        <!-- <div class="addbtndiv">
+            <button class="btn btn-primary"><a href="/add_data/" style="color: white;  text-decoration: none;">Add
+                    Book</a></button>
+        </div> -->
+        <div class="serachbox" >
+            <form method="GET" action="{% url 'search_data' %}">
+                <div class="mb-3 serchinput">
+                    <input type="text" class="form-control" id="query" name="query"
+                        placeholder="search by author or publiser">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <h1>Book Data</h1>
+        <table class="table table-striped" id="clickable-table">
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Authors</th>
+                    <th>Language</th>
+                    <th>Publication_date</th>
+                    <th>Publisher</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in data %}
+
+
+                <tr data-href="{% url 'book_detail_issue' pk=book.pk %}">
+                    <td>{{ book.book_id }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.language_code }}</td>
+                    <td>{{ book.publication_date }}</td>
+                    <td>{{ book.publisher }}</td>
+                    <td><a class="btn btn-warning" href="/book_update/{{book.id}}"><i class="bi bi-pencil-fill"></i></a>
+                    </td>
+                    <td><a class="btn btn-danger" href="/book_delete/{{book.id}}"><i class="bi bi-trash3"></i></a>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const table = document.getElementById("clickable-table");
+        const rows = table.getElementsByTagName("tr");
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            const url = row.getAttribute("data-href");
+            if (url) {
+                row.style.cursor = "pointer";
+                row.addEventListener("click", function () {
+                    window.location.href = url;
+                });
+            }
+        }
+    });
+</script>
+
+</html>

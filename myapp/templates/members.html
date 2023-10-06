@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register User</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Set the table width */
+        .custom-table {
+            width: 80%;
+            /* Change the width as needed */
+            margin: auto;
+            /* To center the table horizontally */
+        }
+    </style>
+</head>
+
+<body>
+    {% include "navbar.html" %}
+    <div class="mt-5 text-center">
+        <h3>Member information</h3>
+        <div class="table-responsive custom-table">
+            <table class="table table-success table-striped">
+                <thead>
+                    <tr> <th>Id</th>
+                        <th>Name</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for d in data %}
+                    <tr><td>{{ d.id }}</td>
+                        <td>{{ d.name }}</td>
+
+                        <td><a class="btn btn-warning" href="/update_member/{{d.id}}"><i
+                                    class="bi bi-pencil-fill"></i></a>
+                        </td>
+                        <td><a class="btn btn-danger" href="/delete_member/{{d.id}}"><i class="bi bi-trash3-fill"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

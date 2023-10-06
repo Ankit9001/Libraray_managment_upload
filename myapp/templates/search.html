@@ -1,0 +1,86 @@
+{% extends 'homepage.html' %}
+
+{% block content %}
+{% load static %}
+{% csrf_token %}
+
+<style>
+    .st {
+        height: 17px;
+        width: 75px;
+        /* background: rgb(13 110 253 / 10%); */
+        border-radius: 20px;
+        position: relative;
+        margin: auto;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ball {
+        height: 4px;
+        width: 4px;
+        border-radius: 50%;
+        /* background: #0d6efd; */
+    }
+
+    .bat {
+        font-size: 10px;
+    }
+
+    .searchlabel {
+        width: calc(100% - 154px)
+    }
+
+    .searchbtn {
+        margin: 0;
+    }
+
+    .searchdiv {
+        align-items: end;
+        padding: 21px 15px 14px 15px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .searchdiv {
+            flex-wrap: wrap;
+        }
+
+        .searchlabel {
+            width: 100%;
+        }
+    }
+</style>
+<main class="main-reminder main-ots">
+    <div class="searchdiv">
+        <div class="searchlabel">
+            <span class="sl">Borrowor Name</span>
+            <input type="text" name="borrowor_name" autocomplete="off" class="searchinput" id="searchinput"
+                placeholder="Name / Phone no. / Loan Account no. / ">
+        </div>
+
+        <button type="button" class="searchbtn">Search</button>
+    </div>
+
+    <section class="table-wrapper">
+        <header>
+            <span class="search_title">Status</span>
+            <span class="search_title">List Id</span>
+            <span class="search_title">Name</span>
+            <span class="search_title">Phone No.</span>
+            <span class="search_title">Loan Account No.</span>
+            <span class="search_title">Attachment</span>
+        </header>
+        <div class="table_body">
+            <input type="hidden" value="{{request.user.module}}" name="user_module">
+        </div>
+    </section>
+
+</main>
+
+
+{% include 'search_ajax.html' %}
+
+
+{% endblock content %}
